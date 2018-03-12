@@ -1,0 +1,21 @@
+data trend_test; 
+do exposure = "low","medium","high"; 
+ do outcome = "health","disease"; 
+  input y @@; 
+  output; 
+ end; 
+end; 
+cards; 
+438 16 
+426 29 
+373 51 
+; 
+run; 
+proc freq data = trend_test; 
+tables outcome * exposure / 
+ plots = freqplot ( twoway=stacked 
+ orient = horizontal scale=percent ); 
+exact trend; 
+weight y; 
+run; 
+/*胡良平, 郭辰仪, 李崇. 用SAS软件实现列联表资料趋势检验[J]. 药学服务与研究, 2013, 13(3):174-176.*/ 
