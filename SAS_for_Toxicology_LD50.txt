@@ -1,0 +1,20 @@
+data carbofuran;
+input dose n response @@;
+mortality = response/n;
+lgdose = log10(dose);
+datalines;
+40 10 9
+24 10 5
+14 10 0
+8.4 10 3
+5 10 4
+3 10 0
+;
+ods graphics on;
+proc probit log10 plot=predpplot;
+model response/n=dose / lackfit inversecl itprint;
+output out=B p=prob std=std xbeta=xbeta;
+run;
+ods graphics off;
+
+/*SAS/STAT 9.3 User’s Guide*/
